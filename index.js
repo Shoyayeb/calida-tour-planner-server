@@ -29,6 +29,24 @@ async function run() {
       const plans = await cursor.toArray();
       res.send(plans);
     });
+
+    // GET ONE API
+    app.get("/plans/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("getting ", id);
+      const query = { _id: ObjectId(id) };
+      const plan = await plansCollection.findOne(query);
+      res.json(plan);
+    });
+
+    // POST API
+    app.post("/plans", async (req, res) => {
+      const plan = req.body;
+      console.log(plan);
+      const result = await plansCollection.insertOne(plan);
+      console.log(result);
+      res.json(result);
+    });
   } finally {
     // await client.close();
   }
