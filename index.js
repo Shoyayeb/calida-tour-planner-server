@@ -25,7 +25,7 @@ async function run() {
     const plansCollection = database.collection("plans");
     const bookedCollection = database.collection("bookedPlans");
 
-    // GET API ---all plana
+    // GET API ---all plan
     app.get("/plans", async (req, res) => {
       const cursor = plansCollection.find({});
       const plans = await cursor.toArray();
@@ -38,11 +38,13 @@ async function run() {
       res.send(plans);
     });
     // GET API ---booked plans by user
-    // app.get("/bookedplans", async (req, res) => {
-    //   const cursor = bookedCollection.find({});
-    //   const plans = await cursor.toArray();
-    //   res.send(plans);
-    // });
+    app.get("/bookedplans:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("getting ", id);
+      const query = { _id: ObjectId(id) };
+      const plan = await bookedCollection.findOne(query);
+      res.json(plan);
+    });
 
     // GET ONE API
     app.get("/plans/:id", async (req, res) => {
