@@ -69,6 +69,15 @@ async function run() {
       console.log(result);
       res.json(result);
     });
+    // DELETE API
+    app.delete("/plans/:id", async (req, res) => {
+      const id = req.params.id;
+      const querry = { _id: ObjectId(id) };
+      const result = await plansCollection.deleteOne(querry);
+      console.log(result);
+      console.log("deleting user with id", id);
+      res.json(result);
+    });
   } finally {
     // await client.close();
   }
