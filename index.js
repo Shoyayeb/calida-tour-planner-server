@@ -23,6 +23,7 @@ async function run() {
     await client.connect();
     const database = client.db("tourplan");
     const plansCollection = database.collection("plans");
+    const bookedCollection = database.collection("bookedPlans");
 
     // GET API
     app.get("/plans", async (req, res) => {
@@ -40,11 +41,19 @@ async function run() {
       res.json(plan);
     });
 
-    // POST API
+    // POST API ---for adding new plans
     app.post("/plans", async (req, res) => {
       const plan = req.body;
       console.log(plan);
       const result = await plansCollection.insertOne(plan);
+      console.log(result);
+      res.json(result);
+    });
+    // POST API ---for booking plan
+    app.post("/bookplan", async (req, res) => {
+      const plan = req.body;
+      console.log(plan);
+      const result = await bookedCollection.insertOne(plan);
       console.log(result);
       res.json(result);
     });
