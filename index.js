@@ -97,6 +97,7 @@ async function run() {
           adults: updatedPlan.adults,
           child: updatedPlan.child,
           phone: updatedPlan.phone,
+          status: updatedPlan.status,
         },
       };
       const result = await bookedCollection.updateOne(
