@@ -86,17 +86,20 @@ async function run() {
     // update api
     app.put("/updateplan/:id", async (req, res) => {
       const id = req.params.id;
-      console.log("updating user", id);
-      const updatedUser = req.body;
+      const updatedPlan = req.body;
       const filter = { _id: ObjectId(id) };
       const options = { upsert: true };
       const updateDoc = {
         $set: {
-          name: updatedUser.name,
-          email: updatedUser.email,
+          name: updatedPlan.name,
+          email: updatedPlan.email,
+          address: updatedPlan.address,
+          adults: updatedPlan.adults,
+          child: updatedPlan.child,
+          phone: updatedPlan.phone,
         },
       };
-      const result = await usersCollection.updateOne(
+      const result = await bookedCollection.updateOne(
         filter,
         updateDoc,
         options
