@@ -57,10 +57,10 @@ async function run() {
       res.json(plan);
     });
 
-    // GET API ---booked plans by user
+    // GET API ---booked plans by user email
     app.get("/mybookedplans/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { email: email(id) };
+      const query = { email: email(id + "@gmail.com") };
       const plan = await bookedCollection.findOne(query);
       res.json(plan);
     });
