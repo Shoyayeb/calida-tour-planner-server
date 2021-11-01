@@ -104,6 +104,26 @@ async function run() {
 
       res.send(result);
     });
+    app.put("/myorders/updateplan/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("updating user", id);
+      const updatedUser = req.body;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          name: updatedUser.name,
+          email: updatedUser.email,
+        },
+      };
+      const result = await usersCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+
+      res.send(result);
+    });
 
     // DELETE API
     app.delete("/plans/:id", async (req, res) => {
